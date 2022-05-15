@@ -1,0 +1,9 @@
+{
+    "video" : {
+        "sources" : {
+            "local" : "files",
+            "remote" : ["<full-path-for-local-video-folder>"],
+            "has_remote" : false
+        }
+    }
+}
