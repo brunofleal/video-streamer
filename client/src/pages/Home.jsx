@@ -6,23 +6,21 @@ import {
 
 import Video from "./Video";
 import Videos from "./Videos";
+import { Link } from "@mui/material";
 
 function Home() {
   return (
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Root />} />
+      <Route path="/"  element={<Videos />} />
       <Route path="/videos" element={<Videos />} />
-      <Route path="/video/:videoname" element={<Video />} />
+      <Route path="/video/:videoid" element={<Video />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>
   );
 }
 
-function Root() {
-    return <h2>Root</h2>
-}
 
 function NotFound() {
     return <h2>Not Found</h2>

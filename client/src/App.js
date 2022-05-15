@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import "./App.css";
 import Home from "./pages/Home";
 
@@ -15,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>{!data ? "Loading..." : data}</p>
+        <p>{!data ? "Loading..." : "Connected To Api"}</p>
         <Home></Home>
       </header>
     </div>

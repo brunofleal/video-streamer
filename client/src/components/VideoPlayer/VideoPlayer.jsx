@@ -1,7 +1,7 @@
 import React from "react";
 import { baseUrl } from "../../constants/constants";
 
-function VideoPlayer({videoName}) {
+function VideoPlayer({videoid}) {
 
 
     const VP = document.getElementById('videoPlayer') // player
@@ -13,9 +13,9 @@ function VideoPlayer({videoName}) {
 
     return (
         <div>
-            <p>Player</p>
-            <video id="videoPlayer" controls onClick={handleOnClick}>
-                <source src={`${baseUrl}/api/video/${videoName}`} type="video/mp4"></source>
+            <p>{`id:${videoid}`}</p>
+            <video style={{maxWidth:'60vw', maxHeight:'40vh'}} id="videoPlayer" controls onClick={handleOnClick} >
+                <source src={`/api/video/${videoid}`} type="video/mp4"></source>
             </video>
         </div>
     );

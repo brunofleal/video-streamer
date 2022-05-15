@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd client && yarn start\" \"cd server && yarn start\""
+    "start": "concurrently \"cd server && yarn start\" \"cd client && yarn start\" "
   },
   "author": "",
   "license": "ISC",

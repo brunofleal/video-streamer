@@ -1,10 +1,17 @@
 import React, {useState, useEffect} from "react";
-import VideoPlayer from "../components/VideoPlayer/VideoPlayer.js";
+import { useParams  } from 'react-router-dom';
+import Link from '@mui/material/Link';
 
-function Video( {videoName} ) {
+import VideoPlayer from "../components/VideoPlayer/VideoPlayer";
+
+function Video() {
+
   const [data, setData] = useState(null);
+  const {videoid} = useParams();
+  console.log(videoid)
 
   useEffect(() => {
+
     fetch(`/api`)
       .then((res) => res.json())
       .then((data) => setData(data.message));
@@ -13,8 +20,9 @@ function Video( {videoName} ) {
   return (
     <div className="App">
       <header className="App-header">
-        <p>{!data ? "Loading..." : data}</p>
-        <VideoPlayer videoName={videoName}></VideoPlayer>
+          <Link href={'/videos'}>Videos</Link>
+        {!data ? <p>"Loading..."</p> : <></>}
+        <VideoPlayer videoid={videoid}></VideoPlayer>
       </header>
     </div>
 

@@ -1,8 +1,7 @@
 const express = require("express");
-const stream = require("stream");
 const fs = require('fs');
 
-const { getAvailablePaths } = require('./listFiles');
+const { availableFileInfos, getFullPathFromFile } = require('./listFiles');
 
 const PORT = process.env.PORT || 5000;
 
@@ -14,13 +13,14 @@ app.get("/api", (req, res) => {
 
 app.get("/api/videos", (req, res) => {
 
-    res.json({ data: getAvailablePaths() });
+    res.json({ data: availableFileInfos });
 });
 
-app.get('/api/video/:path', function (req, res) {
-    console.log({'req_params_path': req.params.path});
-    const path = 'files/sample-mp4-file.mp4' // req.params.path; //
-    const stat = fs.statSync(path)
+app.get('/api/video/:videoid', function (req, res) {
+    const videoid = parseInt(req.params.videoid, 10);
+    const filepath = getFullPathFromFile(videoid);
+
+    const stat = fs.statSync(filepath)
     const fileSize = stat.size
     const range = req.headers.range
     if (range) {
@@ -29,8 +29,8 @@ app.get('/api/video/:path', function (req, res) {
         const end = parts[1]
             ? parseInt(parts[1], 10)
             : fileSize - 1
-        const chunksize =  2**6 //(end - start) + 1
-        const file = fs.createReadStream(path, { start, end })
+        const chunksize =  (end - start) + 1;
+        const file = fs.createReadStream(filepath, { start, end })
         const head = {
             'Content-Range': `bytes ${start}-${end}/${fileSize}`,
             'Accept-Ranges': 'bytes',
@@ -45,7 +45,7 @@ app.get('/api/video/:path', function (req, res) {
             'Content-Type': 'video/mp4',
         }
         res.writeHead(200, head)
-        fs.createReadStream(path).pipe(res)
+        fs.createReadStream(filepath).pipe(res)
     }
 });
 
