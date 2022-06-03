@@ -73,7 +73,20 @@ function getFullPathFromFile(index) {
 
 }
 
+function availableFileCount() {
+    return availableFileInfos.length;
+}
+
+function getVideoInfo(id) {
+    return {
+        name:availableFileInfos[id].path.slice(availableFileInfos[id].path.lastIndexOf('/') + 1),
+        size:availableFileInfos[id].size
+    }
+}
+
 module.exports = {
     availableFileInfos,
-    getFullPathFromFile
+    getFullPathFromFile,
+    availableFileCount,
+    getVideoInfo
 }

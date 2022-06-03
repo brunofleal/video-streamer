@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require('fs');
 
-const { availableFileInfos, getFullPathFromFile } = require('./listFiles');
+const { availableFileInfos, getFullPathFromFile, availableFileCount, getVideoInfo } = require('./listFiles');
 
 const PORT = process.env.PORT || 5000;
 
@@ -14,6 +14,11 @@ app.get("/api", (req, res) => {
 app.get("/api/videos", (req, res) => {
 
     res.json({ data: availableFileInfos });
+});
+
+app.get("/api/videos/count", (req, res) => {
+
+    res.json({ count: availableFileCount() });
 });
 
 app.get('/api/video/:videoid', function (req, res) {
@@ -47,6 +52,12 @@ app.get('/api/video/:videoid', function (req, res) {
         res.writeHead(200, head)
         fs.createReadStream(filepath).pipe(res)
     }
+});
+
+app.get('/api/video/info/:videoid', function (req, res) {
+    const videoid = parseInt(req.params.videoid, 10);
+    res.json({ info: getVideoInfo(videoid) });
+
 });
 
 app.listen(PORT, () => {

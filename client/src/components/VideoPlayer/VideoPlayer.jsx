@@ -13,7 +13,6 @@ function VideoPlayer({videoid}) {
 
     return (
         <div>
-            <p>{`id:${videoid}`}</p>
             <video style={{maxWidth:'60vw', maxHeight:'40vh'}} id="videoPlayer" controls onClick={handleOnClick} >
                 <source src={`/api/video/${videoid}`} type="video/mp4"></source>
             </video>

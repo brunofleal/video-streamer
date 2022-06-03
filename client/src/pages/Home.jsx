@@ -6,7 +6,6 @@ import {
 
 import Video from "./Video";
 import Videos from "./Videos";
-import { Link } from "@mui/material";
 
 function Home() {
   return (
