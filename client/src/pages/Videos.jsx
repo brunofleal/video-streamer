@@ -16,14 +16,26 @@ function Videos() {
     const [sliceInterval, setSliceInterval] = useState([0, 10]);
     const [videos, setVideos] = useState([]);
 
+    const sortByDate = (videos) => {
+        videos.map((video) => {
+            video.creationTimestamp = new Date(video.creationTimestamp);
+            return video;
+        })
+        let sortedVideos = videos.sort((a,b) => {
+            return b.creationTimestamp - a.creationTimestamp;
+        });
+
+        return sortedVideos;
+    }
+
     useEffect(()=> {
         function fetchData() {
             console.log('fetching videos')
             fetch('/api/videos')
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.data);
-                setVideos(data.data);
+                let videos = sortByDate(data.data);
+                setVideos(videos);
                 handlePageChange(1);
             });
         }

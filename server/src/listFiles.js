@@ -57,8 +57,10 @@ function getAvailableFileInfos() {
     const files = getAvailablePaths();
     let fileInfos = [];
     for (const [i, filepath] of files.entries()) {
-        let size_in_mb = fs.statSync(filepath).size / BYTES_PER_MB;
-        let fileInfo = {id: i, path: filepath, size: `${Math.round(size_in_mb)} MB`};
+        const stat = fs.statSync(filepath);
+        let sizeInMb = stat.size / BYTES_PER_MB;
+        let creationTimestamp = stat.birthtime;
+        let fileInfo = {id: i, path: filepath, size: `${Math.round(sizeInMb)} MB`, creationTimestamp};
         fileInfos.push(fileInfo);
     }
     return fileInfos;
@@ -80,7 +82,7 @@ function availableFileCount() {
 function getVideoInfo(id) {
     return {
         name:availableFileInfos[id].path.slice(availableFileInfos[id].path.lastIndexOf('/') + 1),
-        size:availableFileInfos[id].size
+        ...availableFileInfos[id]
     }
 }
 

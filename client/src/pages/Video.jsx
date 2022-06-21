@@ -8,7 +8,7 @@ function Video() {
 
   const [data, setData] = useState(null);
   const [videoCount, setVideoCount] = useState(0);
-  const [videoInfo, setVideoInfo] = useState({name:'', size: ''});
+  const [videoInfo, setVideoInfo] = useState({name: '', size: '', date: ''});
 
   const {videoid} = useParams();
 
@@ -51,7 +51,8 @@ function Video() {
           <Link href={'/videos'}>Videos</Link>
         {!data ? <p>"Loading..."</p> : <></>}
         <p>{`(${videoid}/${videoCount})`}</p>
-        <p>{`${videoInfo.name} (${videoInfo.size}MB)`}</p>
+        <p>{`${videoInfo.name} - (${videoInfo.size})`}</p>
+        <p>{`${new Date(videoInfo.creationTimestamp).toLocaleDateString('pt-Br')}`}</p>
         <VideoPlayer videoid={videoid}></VideoPlayer>
         <Link href={getNextVideoEndpoint("previous")}> Previous </Link>
         <Link href={getNextVideoEndpoint("next")}> Next </Link>
